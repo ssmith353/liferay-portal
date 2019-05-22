@@ -59,7 +59,7 @@ AUI.add(
 
 							var yourScore = value;
 
-							if ((instance.get('type') == 'stars' || instance.get('type') == 'stacked-stars') && yourScore == -1.0) {
+							if ((instance.get('type') === 'stars' || instance.get('type') === 'stacked-stars') && yourScore === -1.0) {
 								yourScore = 0;
 							}
 
@@ -84,14 +84,12 @@ AUI.add(
 					},
 
 					_convertToIndex: function(score) {
-						var instance = this;
-
 						var scoreIndex = -1;
 
-						if (score == 1.0) {
+						if (score === 1.0) {
 							scoreIndex = 0;
 						}
-						else if (score == 0.0) {
+						else if (score === 0.0) {
 							scoreIndex = 1;
 						}
 
@@ -99,8 +97,6 @@ AUI.add(
 					},
 
 					_fixScore: function(score) {
-						var instance = this;
-
 						var prefix = '';
 
 						if (score > 0) {
@@ -113,12 +109,18 @@ AUI.add(
 					_getLabel: function(desc, totalEntries) {
 						var instance = this;
 
-						var voteLabel = '';
-						var tplLabel = instance.get('type') == 'stacked-stars'
-							? TPL_LABEL_SCORE_STACKED
-							: TPL_LABEL_SCORE;
+						var tplLabel = '';
 
-						if (totalEntries == 1) {
+						if (instance.get('type') === 'stacked-stars') {
+							tplLabel = TPL_LABEL_SCORE_STACKED;
+						}
+						else {
+							tplLabel = TPL_LABEL_SCORE;
+						}
+
+						var voteLabel = '';
+
+						if (totalEntries === 1) {
 							voteLabel = Liferay.Language.get('vote');
 						}
 						else {
@@ -176,7 +178,7 @@ AUI.add(
 
 						var stars = instance._ratingScoreNode.all('.icon-star').size();
 
-						if (stars == 1) {
+						if (stars === 1) {
 							message = Liferay.Language.get('star');
 						}
 						else {
@@ -194,7 +196,7 @@ AUI.add(
 						if (firstNode) {
 							var message = '';
 
-							if (averageScore == 1.0) {
+							if (averageScore === 1.0) {
 								message = Liferay.Language.get('the-average-rating-is-x-star-out-of-x');
 							}
 							else {
@@ -456,8 +458,6 @@ AUI.add(
 					},
 
 					_getThumbScores: function(entries, score) {
-						var instance = this;
-
 						var positiveVotes = Math.floor(score);
 
 						var negativeVotes = entries - positiveVotes;
@@ -643,8 +643,6 @@ AUI.add(
 					},
 
 					_getThumbScores: function(entries, score) {
-						var instance = this;
-
 						return {
 							positiveVotes: entries
 						};

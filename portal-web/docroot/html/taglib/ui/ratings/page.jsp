@@ -94,24 +94,24 @@ if (!inTrash) {
 					<liferay-util:whitespace-remover>
 
 						<%
-							for (int i = 1; i <= numberOfStars; i++) {
-								String message = StringPool.BLANK;
+						for (int i = 1; i <= numberOfStars; i++) {
+							String message = StringPool.BLANK;
 
-								if (inTrash) {
-									message = LanguageUtil.get(resourceBundle, "ratings-are-disabled-because-this-entry-is-in-the-recycle-bin");
-								}
-								else if (!enabled) {
-									message = LanguageUtil.get(resourceBundle, "ratings-are-disabled-in-staging");
-								}
-								else if (i == 1) {
-									message = LanguageUtil.format(request, ((formattedAverageScore == 1.0) ? "the-average-rating-is-x-star-out-of-x" : "the-average-rating-is-x-stars-out-of-x"), new Object[] {formattedAverageScore, numberOfStars}, false);
-								}
-						%>
-
-						<span class="rating-element <%= (i <= averageIndex) ? "icon-star" : "icon-star-empty" %>" title="<%= message %>"></span>
-
-						<%
+							if (inTrash) {
+								message = LanguageUtil.get(resourceBundle, "ratings-are-disabled-because-this-entry-is-in-the-recycle-bin");
 							}
+							else if (!enabled) {
+								message = LanguageUtil.get(resourceBundle, "ratings-are-disabled-in-staging");
+							}
+							else if (i == 1) {
+								message = LanguageUtil.format(request, ((formattedAverageScore == 1.0) ? "the-average-rating-is-x-star-out-of-x" : "the-average-rating-is-x-stars-out-of-x"), new Object[] {formattedAverageScore, numberOfStars}, false);
+							}
+							%>
+
+							<span class="rating-element <%= (i <= averageIndex) ? "icon-star" : "icon-star-empty" %>" title="<%= message %>"></span>
+
+							<%
+						}
 						%>
 
 					</liferay-util:whitespace-remover>
@@ -128,22 +128,22 @@ if (!inTrash) {
 						<liferay-util:whitespace-remover>
 
 							<%
-								double yourScoreStars = (yourScore != -1.0) ? yourScore * numberOfStars : 0.0;
+							double yourScoreStars = (yourScore != -1.0) ? yourScore * numberOfStars : 0.0;
 
-								for (int i = 1; i <= numberOfStars; i++) {
-									String ratingId = PortalUtil.generateRandomKey(request, "taglib_ui_ratings_page_rating");
+							for (int i = 1; i <= numberOfStars; i++) {
+								String ratingId = PortalUtil.generateRandomKey(request, "taglib_ui_ratings_page_rating");
 							%>
 
-							<a class="rating-element <%= (i <= yourScoreStars) ? "icon-star" : "icon-star-empty" %>" href="javascript:;"></a>
+								<a class="rating-element <%= (i <= yourScoreStars) ? "icon-star" : "icon-star-empty" %>" href="javascript:;"></a>
 
-							<div class="rating-input-container">
-								<label for="<%= ratingId %>"><liferay-ui:message arguments="<%= new Object[] {i, numberOfStars} %>" key='<%= (yourScoreStars == i) ? ((i == 1) ? "you-have-rated-this-x-star-out-of-x" : "you-have-rated-this-x-stars-out-of-x") : ((i == 1) ? "rate-this-x-star-out-of-x" : "rate-this-x-stars-out-of-x") %>' translateArguments="<%= false %>" /></label>
+								<div class="rating-input-container">
+									<label for="<%= ratingId %>"><liferay-ui:message arguments="<%= new Object[] {i, numberOfStars} %>" key='<%= (yourScoreStars == i) ? ((i == 1) ? "you-have-rated-this-x-star-out-of-x" : "you-have-rated-this-x-stars-out-of-x") : ((i == 1) ? "rate-this-x-star-out-of-x" : "rate-this-x-stars-out-of-x") %>' translateArguments="<%= false %>" /></label>
 
-								<input checked="<%= i == yourScoreStars %>" class="rating-input" id="<%= ratingId %>" name="<portlet:namespace />rating" type="radio" value="<%= i %>">
-							</div>
+									<input checked="<%= i == yourScoreStars %>" class="rating-input" id="<%= ratingId %>" name="<portlet:namespace />rating" type="radio" value="<%= i %>">
+								</div>
 
 							<%
-								}
+							}
 							%>
 
 						</liferay-util:whitespace-remover>
